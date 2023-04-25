@@ -4,6 +4,9 @@ from edge import Edge
 from grid import Grid
 from bot import Bot
 from pathfinder import *
+from botcommand import BotCommand
+from request import Request
+import random
 class Board():
     def __init__(self, window, width, height):
         self.window_width = width
@@ -29,11 +32,15 @@ class Board():
         self.admissions = Image(Point(900,260), "img/admissions.png")
         self.background = Rectangle(Point(0,0), Point(self.window_width, self.window_height))
         self.background.setFill(color_rgb(0,0,0))
+        self.frame_ct = 0
+        self.request = []
         
         
         self.createNodes()
         self.createEdges()
         self.init_paint()
+
+        self.botBrain = BotCommand(self.edgeList, self.node_dict, 33)
         
         
         thing = getPath(self.edgeList, self.node_dict, 33, 3, len(self.node_dict))
@@ -42,6 +49,8 @@ class Board():
         
     def move(self):
         self.testBot.move()
+        self.frame_ct += 1
+        self.make_requets()
         self.repaint()
     def init_paint(self):
         self.background.draw(self.win)
@@ -81,4 +90,11 @@ class Board():
             id = str(edgeTuple[1]) + "," + str(edgeTuple[0])
             tempEdge = Edge(self.node_dict[edgeTuple[1]], self.node_dict[edgeTuple[0]], self.win,id)
             self.edgeList[id] = tempEdge
+    def make_requets(self):
+        if (self.frame_ct % 10) == 0:
+            self.request.append(Request(random.randint(0,len(self.node_dict) - 2),self.node_dict, self.win))
+
+            
+
+    
 

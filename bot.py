@@ -16,12 +16,12 @@ class Bot():
         self.curPosition = startNode.pos
         self.completion = 0
         self.curEdge = None
-        self.curImage = None
+        self.curImage = Image(Point(self.x,self.y), "img/bot.png").draw(self.win)
 
     def setPath(self,path):
         self.edgeQue = path
     def move(self):
-        self.curImage.undraw()
+        
         if self.curEdge is None:
             if len(self.edgeQue) > 0:                
                 self.curEdge = self.edgeQue.popleft()
@@ -41,6 +41,7 @@ class Bot():
         
 
     def draw(self):
+        self.curImage.undraw()
         self.curImage = Image(Point(self.x,self.y), "img/bot.png").draw(self.win)
 
         
