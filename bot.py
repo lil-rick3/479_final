@@ -11,13 +11,15 @@ class Bot():
         
 
         self.win = window
-        self.edgeQue = deque([edge_dict["2,4"], edge_dict["4,26"], edge_dict["26,10"],edge_dict["10,21"],edge_dict["21,20"]])
+        self.edgeQue = deque()
         self.speed = 4
         self.curPosition = startNode.pos
         self.completion = 0
         self.curEdge = None
         self.curImage = None
 
+    def setPath(self,path):
+        self.edgeQue = path
     def move(self):
         self.curImage.undraw()
         if self.curEdge is None:

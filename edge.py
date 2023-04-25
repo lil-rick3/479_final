@@ -4,9 +4,11 @@ import math
 
 class Edge():
     
-    def __init__(self, node1, node2, window):
+    def __init__(self, node1, node2, window,identity):
         self.start = node1
-        self.start.edges.append(self)
+        self.id = identity
+        self.start.edges[self.id] = self
+        self.start.nodesOut[node2.id] = node2
         self.end = node2
         
         self.win = window
@@ -15,6 +17,7 @@ class Edge():
        
         self.makepath()
         self.distance = math.sqrt(pow(self.start.x - self.end.x,2) + pow(self.start.y - self.end.y,2))
+        self.weight = self.distance
 
     def sendCurrentLocation(self, speed, completion):
         delta = speed/self.distance

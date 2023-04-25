@@ -4,7 +4,8 @@ class Node():
         self.x = xPos
         self.y = yPos
         self.pos = Point(self.x, self.y)
-        self.edges = []
+        self.edges = {}
+        self.nodesOut = {}
         self.win = window
         self.id = id
         self.c = Circle(self.pos, 10)
