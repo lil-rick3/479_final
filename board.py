@@ -32,9 +32,9 @@ class Board():
         self.admissions = Image(Point(900,260), "img/admissions.png")
         self.background = Rectangle(Point(0,0), Point(self.window_width, self.window_height))
         self.background.setFill(color_rgb(0,0,0))
-        self.frame_ct = 0
+        self.frame_ct = -1
         self.request = []
-        
+        self.bots = []
         
         self.createNodes()
         self.createEdges()
@@ -42,16 +42,18 @@ class Board():
 
         self.botBrain = BotCommand(self.edgeList, self.node_dict, 33)
         
+        self.createBots(10)
         
-        thing = getPath(self.edgeList, self.node_dict, 33, 3, len(self.node_dict))
-        self.testBot = Bot(self.node_dict[33], self.win, self.edgeList)
-        self.testBot.setPath(thing)
+        
+        
         
     def move(self):
-        self.testBot.move()
+        for bot in self.bots:
+            bot.move()
+        
         self.frame_ct += 1
         self.make_requets()
-        self.repaint()
+        
     def init_paint(self):
         self.background.draw(self.win)
         self.old_main.draw(self.win)
@@ -64,8 +66,9 @@ class Board():
 
     def repaint(self):
         
-       
-        self.testBot.draw()
+        for bot in self.bots:
+            bot.draw()
+        
 
 
     def paintNodes(self):
@@ -90,9 +93,13 @@ class Board():
             id = str(edgeTuple[1]) + "," + str(edgeTuple[0])
             tempEdge = Edge(self.node_dict[edgeTuple[1]], self.node_dict[edgeTuple[0]], self.win,id)
             self.edgeList[id] = tempEdge
+    def createBots(self,numBots):
+        for i in range(numBots):
+            self.bots.append(Bot(self.node_dict[33], self.win,self.botBrain))
+
     def make_requets(self):
-        if (self.frame_ct % 10) == 0:
-            self.request.append(Request(random.randint(0,len(self.node_dict) - 2),self.node_dict, self.win))
+        if (self.frame_ct % 80) == 0:
+            self.botBrain.addRequests(Request(random.randint(0,len(self.node_dict) - 2),self.node_dict, self.win))
 
             
 

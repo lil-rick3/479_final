@@ -17,8 +17,14 @@ def main():
     b1.repaint()
 
     while True:
+        start_time = time.time()
         b1.move()
-        time.sleep(30/1000)
+        if(b1.frame_ct % 1== 0):
+            b1.repaint()
+        time_taken = time.time() - start_time
+        print(time_taken)
+        time.sleep(max(0.01 - time_taken,0))
+            
         
         
    

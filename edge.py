@@ -31,12 +31,12 @@ class Edge():
     def makepath(self):
         
         try:
-            dy = int(self.thickness * (-(self.end.x - self.start.x)/(self.end.y-self.start.y))/(math.sqrt(1 + abs((self.end.x - self.start.x)/(self.end.y-self.start.y)))))
+            dy = int(self.thickness * (-(self.end.x - self.start.x)/(self.end.y-self.start.y))/(math.sqrt(1 + pow(abs((self.end.x - self.start.x)/(self.end.y-self.start.y)),2))))
         except:
             dy = self.thickness * 1
         try:
 
-            dx = int(self.thickness * 1/(math.sqrt(1 + abs((self.end.x - self.start.x)/(self.end.y-self.start.y)))))
+            dx = int(self.thickness * 1/(math.sqrt(1 + pow(abs((self.end.x - self.start.x)/(self.end.y-self.start.y)),2))))
         except:
             dx = 0
         p1 = Point(self.start.x - dx, self.start.y - dy)
